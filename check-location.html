@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Check Browser Location</title>
+</head>
+<body>
+  <h2>Browser Geolocation Test</h2>
+  <button onclick="getLocation()">Get My Location</button>
+  <div id="output" style="margin-top:20px;"></div>
+  <script>
+    function getLocation() {
+      const output = document.getElementById('output');
+      if (!navigator.geolocation) {
+        output.textContent = "Geolocation is not supported by your browser.";
+        return;
+      }
+      output.textContent = "Locating...";
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          output.innerHTML = `
+            <b>Latitude:</b> ${pos.coords.latitude}<br>
+            <b>Longitude:</b> ${pos.coords.longitude}<br>
+            <b>Accuracy:</b> ${pos.coords.accuracy} meters
+          `;
+        },
+        (err) => {
+          output.textContent = "Error: " + err.message;
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0
+        }
+      );
+    }
+  </script>
+</body>
+</html>

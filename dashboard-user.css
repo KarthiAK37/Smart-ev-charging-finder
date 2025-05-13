@@ -1,0 +1,223 @@
+/* Profile Page - User Details Form */
+.kyc-form-container {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  margin: 50px auto; /* Center the form on the page */
+  text-align: center;
+}
+
+.kyc-form-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+#kyc-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+#kyc-form label {
+  font-weight: bold;
+  font-size: 14px;
+  color: #555;
+  text-align: left;
+}
+
+#kyc-form input, #kyc-form textarea, #kyc-form button {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+#kyc-form input:focus, #kyc-form textarea:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+#kyc-form textarea {
+  resize: none;
+  height: 80px;
+}
+
+#kyc-form button {
+  align-self: center;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+#kyc-form button:hover {
+  background-color: #0056b3;
+}
+
+/* Profile Page Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9; /* Light background for the entire page */
+  color: #333; /* Default text color */
+}
+
+header.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #007bff; /* Header background color */
+  color: #fff; /* Header text color */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header .header-left h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+header .header-right .btn {
+  background-color: #fff;
+  color: #007bff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+header .header-right .btn:hover {
+  background-color: #0056b3;
+  color: #fff;
+}
+
+.dashboard-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px); /* Adjust for header height */
+  padding: 20px;
+}
+
+/* New Pages Styles */
+.bookings-container, .payments-container, .help-container {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.bookings-container h2, .payments-container h2, .help-container h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+#bookings-list, #payments-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+#bookings-list li, #payments-list li {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+#support-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+#support-form textarea {
+  resize: none;
+  height: 100px;
+}
+
+/* Book Now Page */
+.booking-form-container {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.booking-form-container h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+#booking-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+#booking-form label {
+  font-weight: bold;
+  font-size: 14px;
+  color: #555;
+  text-align: left;
+}
+
+#booking-form select, #booking-form input, #booking-form button {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+#booking-form select:focus, #booking-form input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+#booking-form button {
+  align-self: center;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+#booking-form button:hover {
+  background-color: #0056b3;
+}
+
+/* Map Container */
+#map-container {
+  width: 100%;
+  height: calc(100vh - 80px); /* Full height minus header */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#map {
+  width: 90%;
+  height: 90%;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

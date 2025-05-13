@@ -1,0 +1,197 @@
+/* General Reset */
+body, h1, h2, p, button {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+header.dashboard-header {
+    background-color: #007bff;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+}
+
+header h1 {
+    font-size: 1.5rem;
+}
+
+header .btn {
+    background-color: white;
+    color: #007bff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+header .btn:hover {
+    background-color: #e6e6e6;
+}
+
+.dashboard-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 100px); /* Adjust for header height */
+    background-color: #f9f9f9; /* Light background for a professional look */
+}
+
+.navigation-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Increased spacing between buttons */
+    width: 300px; /* Set a fixed width for uniformity */
+}
+
+.map-container, .ride-options {
+    flex: 1;
+    margin: 0 1rem;
+}
+
+#map {
+    width: 100%;
+    height: 300px;
+    background-color: #ddd;
+}
+
+.ride-options ul {
+    list-style: none;
+    padding: 0;
+}
+
+.ride-options li {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    margin-bottom: 0.5rem;
+    border-radius: 5px;
+}
+
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    background-color: #e6e6e6;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    font-size: 1rem;
+    color: #333;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    border-radius: 5px;
+}
+
+.tab-btn.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.tab-btn:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.tab-content {
+    display: none;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.tab-content:not(.hidden) {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* From Uiverse.io by alexmaracinaru */
+.cta {
+    border: 2px solid #000; /* Add a border for a professional look */
+    border-radius: 8px; /* Rounded corners */
+    padding: 10px 20px; /* Add padding for better button size */
+    background-color: #fff; /* White background for contrast */
+    color: #000; /* Default text color */
+    transition: all 0.3s ease; /* Smooth hover effect */
+}
+
+.cta:hover {
+    background-color: #000; /* Change background on hover */
+    color: #fff; /* Change text color on hover */
+}
+
+.cta span {
+    font-weight: bold; /* Make text bold */
+    color: inherit; /* Inherit text color for hover effect */
+    padding-right: 25px; /* Add more space between text and arrow */
+}
+
+.cta svg {
+    fill: #000; /* Default arrow color */
+    transform: translateX(-12px); /* Add more space between text and arrow */
+    transition: all 0.3s ease; /* Smooth hover effect */
+}
+
+.cta:hover svg {
+    transform: translateX(0); /* Reset arrow position on hover */
+    fill: #fff; /* Change arrow color on hover */
+}
+
+.cta:active svg {
+    transform: scale(0.9);
+}
+
+.hover-underline-animation {
+    position: relative;
+    color: black;
+    padding-bottom: 20px;
+}
+
+.hover-underline-animation:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #000000;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+
+.cta:hover .hover-underline-animation:after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}

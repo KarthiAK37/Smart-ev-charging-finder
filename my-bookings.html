@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Bookings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #232526 0%, #414345 100%);
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 32px;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            color: #00e676;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        }
+        #bookings-list {
+            max-width: 700px;
+            margin: 40px auto;
+            background: rgba(35, 39, 43, 0.95);
+            border-radius: 18px;
+            padding: 32px 28px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1.5px solid #00e67644;
+        }
+        .booking-item {
+            background: linear-gradient(120deg, #232526 60%, #00e67622 100%);
+            border-radius: 12px;
+            box-shadow: 0 2px 12px 0 rgba(0,0,0,0.18);
+            border: 1.5px solid #00e67655;
+            margin-bottom: 22px;
+            padding: 20px 24px;
+            transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+            position: relative;
+        }
+        .booking-item:last-child {
+            margin-bottom: 0;
+        }
+        .booking-item:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 8px 24px 0 rgba(0, 230, 118, 0.18);
+            border-color: #00e676;
+        }
+        .booking-label {
+            color: #00e676;
+            font-size: 1.05em;
+            font-weight: 600;
+            margin-right: 6px;
+            letter-spacing: 0.5px;
+            text-shadow: 0 1px 4px #003a1c44;
+        }
+        .booking-item div {
+            margin-bottom: 7px;
+            font-size: 1.08em;
+        }
+        .booking-item div:last-child {
+            margin-bottom: 0;
+        }
+        .no-bookings {
+            text-align: center;
+            color: #00e676cc;
+            margin: 48px 0;
+            font-size: 1.3em;
+            letter-spacing: 1px;
+        }
+        @media (max-width: 600px) {
+            #bookings-list {
+                padding: 16px 4vw;
+            }
+            .booking-item {
+                padding: 14px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>My Bookings</h1>
+    <div id="bookings-list">
+        <div class="no-bookings" id="no-bookings-msg">Loading...</div>
+    </div>
+    <script type="module">
+        import { getUserBookings } from './my-bookings.js';
+
+        async function renderBookings() {
+            const bookings = await getUserBookings();
+            const list = document.getElementById('bookings-list');
+            const noMsg = document.getElementById('no-bookings-msg');
+            list.innerHTML = '';
+            if (!bookings.length) {
+                noMsg.textContent = "No bookings found.";
+                list.appendChild(noMsg);
+                return;
+            }
+            bookings.forEach((b, idx) => {
+                const div = document.createElement('div');
+                div.className = 'booking-item';
+                div.innerHTML = `
+                    <div><span class="booking-label">Station:</span> ${b.station || ''}</div>
+                    <div><span class="booking-label">Slot:</span> ${b.slotNo || ''}</div>
+                    <div><span class="booking-label">From:</span> ${b.chargingfrom || ''}</div>
+                    <div><span class="booking-label">To:</span> ${b.chargingto || ''}</div>
+                    <div><span class="booking-label">Name:</span> ${b.Name || ''}</div>
+                    <div><span class="booking-label">Mail:</span> ${b.Mail || ''}</div>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        renderBookings();
+    </script>
+</body>
+</html>

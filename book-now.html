@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🗺️</text></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MapLibre Dark Map</title>
+  <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
+  <link rel="stylesheet" href="book-now.css">
+
+  <!-- MapLibre script -->
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+</head>
+<body>
+  
+  <div id="map"></div>
+  <button id="refresh-location" style="position:absolute;top:10px;left:10px;z-index:10;">Refresh Location</button>
+  <div id="location-accuracy" style="position:absolute;top:50px;left:10px;z-index:10;background:#222;color:#fff;padding:4px 8px;border-radius:4px;"></div>
+
+  <!-- EV Station Toggle Switch (default OFF) -->
+  <div style="position:absolute;left:20px;top:50%;transform:translateY(-50%);z-index:1000;">
+    <label class="switch" id="station-switch-label">
+      <input id="station-switch" type="checkbox">
+      <div class="slider">
+        <div class="circle">
+          <svg class="cross" xml:space="preserve" style="enable-background:new 0 0 512 512" viewBox="0 0 365.696 365.696" y="0" x="0" height="6" width="6" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <path data-original="#000000" fill="currentColor" d="M243.188 182.86 356.32 69.726c12.5-12.5 12.5-32.766 0-45.247L341.238 9.398c-12.504-12.503-32.77-12.503-45.25 0L182.86 122.528 69.727 9.374c-12.5-12.5-32.766-12.5-45.247 0L9.375 24.457c-12.5 12.504-12.5 32.77 0 45.25l113.152 113.152L9.398 295.99c-12.503 12.503-12.503 32.769 0 45.25L24.48 356.32c12.5 12.5 32.766 12.5 45.247 0l113.132-113.132L295.99 356.32c12.503 12.5 32.769 12.5 45.25 0l15.081-15.082c12.5-12.504 12.5-32.77 0-45.25zm0 0"></path>
+            </g>
+          </svg>
+          <svg class="checkmark" xml:space="preserve" style="enable-background:new 0 0 512 512" viewBox="0 0 24 24" y="0" x="0" height="10" width="10" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <path class="" data-original="#000000" fill="currentColor" d="M9.707 19.121a.997.997 0 0 1-1.414 0l-5.646-5.647a1.5 1.5 0 0 1 0-2.121l.707-.707a1.5 1.5 0 0 1 2.121 0L9 14.171l9.525-9.525a1.5 1.5 0 0 1 2.121 0l.707.707a1.5 1.5 0 0 1 0 2.121z"></path>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </label>
+  </div>
+  <!-- Place the button below the toggle switch, with proper styling for visibility -->
+  <button id="search-nearby-btn" style="position:absolute;left:20px;top:60%;transform:translateY(-50%);z-index:1000;">
+    Search Nearby EV Stations
+  </button>
+  <!-- Add new button for searching nearby to searched location -->
+  <button id="search-near-to-btn" style="position:absolute;left:20px;top:70%;transform:translateY(-50%);z-index:1000;">
+    Search Nearby to Searched Location
+  </button>
+  <!-- Route Directions UI -->
+  <div style="position:absolute;top:100px;left:10px;z-index:10;background:#222;color:#fff;padding:8px;border-radius:4px;">
+    <label>To: <input id="to-coords" type="text" placeholder="Enter destination" style="width:120px"></label><br>
+    <button id="route-btn">Get Directions</button>
+    <div id="route-error" style="color:#ff6666;"></div>
+  </div>
+
+  <!-- Booking Tab Modal (centered cutout, hidden by default) -->
+  <div id="booking-modal-overlay" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.5);z-index:1999;"></div>
+  <div id="booking-tab" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);min-width:320px;max-width:90vw;background:#222;color:#fff;z-index:2000;padding:24px 16px 16px 16px;box-shadow:0 2px 24px rgba(0,0,0,0.5);border-radius:16px;">
+    <button id="close-booking-tab" style="position:absolute;top:8px;right:16px;background:none;border:none;color:#fff;font-size:24px;cursor:pointer;">&times;</button>
+    <h2 id="booking-station-name" style="margin-top:0;"></h2>
+    <div id="booking-station-notification" style="margin-bottom:8px;color:#00e676;font-weight:600;"></div>
+    <div id="booking-station-details"></div>
+    <hr style="border:1px solid #444;">
+    <div id="booking-details-section">
+      <h3 style="margin-bottom:8px;">Booking Details</h3>
+      <div id="slots-container" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px;"></div>
+      <div id="slot-info" style="margin-bottom:8px;"></div>
+      <div id="booking-timing-section" style="display:none;">
+        <label for="booking-time-from">From:</label>
+        <input type="datetime-local" id="booking-time-from" style="margin-left:8px;">
+        <label for="booking-time-to" style="margin-left:12px;">To:</label>
+        <input type="datetime-local" id="booking-time-to" style="margin-left:8px;">
+        <button id="confirm-booking-btn" style="margin-left:8px;">Book</button>
+      </div>
+    </div>
+  </div>
+  <!-- Your JS file -->
+  <script type="module" src="book-now.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="dashboard-styles.css">
+    <script type="module" src="user-dashboard.js" defer></script>
+</head>
+<body>
+    <header class="dashboard-header">
+        <div class="header-left">
+            <h1>Welcome, User!</h1>
+        </div>
+        <div class="header-right">
+            <button id="logout" class="btn">Logout</button>
+        </div>
+    </header>
+    <main class="dashboard-main">
+        <div class="navigation-buttons">
+            <button class="cta" onclick="window.location.href='profile.html'">
+                <span class="hover-underline-animation">Profile</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="10" viewBox="0 0 46 16">
+                    <path d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z" transform="translate(30)"></path>
+                </svg>
+            </button>
+            <button class="cta" onclick="window.location.href='book-now.html'">
+                <span class="hover-underline-animation">Book Now</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="10" viewBox="0 0 46 16">
+                    <path d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z" transform="translate(30)"></path>
+                </svg>
+            </button>
+            <button class="cta" onclick="window.location.href='my-bookings.html'">
+                <span class="hover-underline-animation">My Bookings</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="10" viewBox="0 0 46 16">
+                    <path d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z" transform="translate(30)"></path>
+                </svg>
+            </button>
+            <button class="cta" onclick="window.location.href='help-support.html'">
+                <span class="hover-underline-animation">Help & Support</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="10" viewBox="0 0 46 16">
+                    <path d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z" transform="translate(30)"></path>
+                </svg>
+            </button>
+        </div>
+    </main>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const logoutBtn = document.getElementById("logout");
+        if (logoutBtn) {
+          logoutBtn.addEventListener("click", function() {
+            window.location.href = "user-login.html";
+          });
+        }
+      });
+    </script>
+</body>
+</html>

@@ -1,0 +1,462 @@
+/* Premium, elegant dashboard, dropdown, and modal styles */
+
+body {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #232526 0%, #414345 100%);
+  color: #fff;
+  min-height: 100vh;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(90deg, #0f172a 60%, #00e676 100%);
+  color: #fff;
+  padding: 18px 36px;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.18);
+}
+
+nav h1 {
+  margin: 0;
+  font-size: 2rem;
+  letter-spacing: 2px;
+  font-weight: 700;
+  color: #00e676;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+nav button {
+  background: linear-gradient(90deg, #ef4444 60%, #ffd700 100%);
+  color: #fff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.1em;
+  font-weight: 600;
+  box-shadow: 0 2px 8px #00e67633;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+nav button:hover {
+  background: linear-gradient(90deg, #dc2626 60%, #ffd700 100%);
+  box-shadow: 0 4px 16px #00e67655;
+}
+
+main {
+  padding: 32px 0;
+}
+
+.overview {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 32px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: linear-gradient(120deg, #232526 60%, #00e67622 100%);
+  border: 1.5px solid #00e67655;
+  border-radius: 16px;
+  padding: 24px 32px;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.13);
+  flex: 1;
+  text-align: center;
+  font-size: 1.25em;
+  color: #fff;
+  font-weight: 500;
+  min-width: 180px;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.card:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 8px 32px 0 #00e67633;
+  border-color: #00e676;
+}
+
+#bookingHistoryBtn {
+  background: linear-gradient(90deg, #00e676 60%, #ffd700 100%);
+  color: #232526;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 28px;
+  font-size: 1.1em;
+  margin-left: auto;
+  box-shadow: 0 2px 8px #00e67633;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+#bookingHistoryBtn:hover {
+  background: linear-gradient(90deg, #ffd700 60%, #00e676 100%);
+  box-shadow: 0 4px 16px #ffd70055;
+}
+
+.slots-status {
+  margin-bottom: 32px;
+}
+
+.slots-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.slot {
+  text-align: center;
+  font-weight: bold;
+  border: 1.5px solid #00e67655;
+  box-shadow: 0 2px 8px #00e67622;
+  border-radius: 10px;
+  padding: 18px 0;
+  font-size: 1.1em;
+  background: linear-gradient(120deg, #232526 60%, #00e67622 100%);
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
+
+.slot.available {
+  background: linear-gradient(120deg, #232526 60%, #00e67655 100%);
+  border-color: #00e676;
+}
+
+.slot.booked {
+  background: linear-gradient(120deg, #232526 60%, #ffd70055 100%);
+  border-color: #ffd700;
+}
+
+.slot.unavailable {
+  background: linear-gradient(120deg, #232526 60%, #e5e7eb55 100%);
+  border-color: #e5e7eb;
+  color: #bbb;
+}
+
+.slot.maintenance {
+  background: linear-gradient(120deg, #232526 60%, #f59e4255 100%);
+  border-color: #f59e42;
+}
+
+.slot.charging {
+  background: linear-gradient(120deg, #232526 60%, #3b82f655 100%);
+  border-color: #3b82f6;
+}
+
+.slot.reserved {
+  background: linear-gradient(120deg, #232526 60%, #f9731655 100%);
+  border-color: #f97316;
+}
+
+.slot:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 6px 24px #00e67633;
+  border-color: #00e676;
+}
+
+#slot-properties {
+  background: linear-gradient(120deg, #232526 60%, #00e67622 100%);
+  border: 1.5px solid #00e67655;
+  border-radius: 16px;
+  padding: 28px 32px;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.13);
+  color: #fff;
+  max-width: 480px;
+  margin: 0 auto 32px auto;
+}
+
+#slot-properties h2 {
+  color: #00e676;
+  margin-top: 0;
+  margin-bottom: 18px;
+  font-size: 1.4em;
+}
+
+#slot-properties label {
+  font-weight: 600;
+  color: #ffd700;
+  font-size: 1.08em;
+}
+
+#slot-status {
+  background: #232526;
+  color: #00e676;
+  border: 1.5px solid #00e67655;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 1em;
+  margin-left: 8px;
+  margin-top: 8px;
+  font-weight: 600;
+  transition: border-color 0.2s;
+}
+
+#slot-status:focus {
+  border-color: #00e676;
+  outline: none;
+}
+
+#slot-timestamp {
+  background: #232526;
+  color: #ffd700;
+  border: 1.5px solid #ffd70055;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 1em;
+  margin-top: 8px;
+  font-weight: 600;
+  transition: border-color 0.2s;
+}
+
+#slot-timestamp:focus {
+  border-color: #ffd700;
+  outline: none;
+}
+
+#slot-properties button {
+  background: linear-gradient(90deg, #00e676 60%, #ffd700 100%);
+  color: #232526;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 28px;
+  font-size: 1.1em;
+  margin-top: 12px;
+  box-shadow: 0 2px 8px #00e67633;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+#slot-properties button:hover {
+  background: linear-gradient(90deg, #ffd700 60%, #00e676 100%);
+  box-shadow: 0 4px 16px #ffd70055;
+}
+
+.notifications {
+  background: linear-gradient(120deg, #232526 60%, #00e67622 100%);
+  border-radius: 16px;
+  padding: 28px 32px;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.13);
+  margin-bottom: 32px;
+}
+
+.notifications h2 {
+  color: #00e676;
+  margin-top: 0;
+  margin-bottom: 18px;
+  font-size: 1.3em;
+}
+
+.notifications ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.notifications li {
+  background: #232526;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1.5px solid #00e67655;
+  color: #fff;
+}
+
+.notifications input[type="text"] {
+  background: #232526;
+  color: #00e676;
+  border: 1.5px solid #00e67655;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 1em;
+  margin-right: 8px;
+  font-weight: 600;
+  transition: border-color 0.2s;
+}
+
+.notifications input[type="text"]:focus {
+  border-color: #00e676;
+  outline: none;
+}
+
+.notifications button {
+  background: linear-gradient(90deg, #00e676 60%, #ffd700 100%);
+  color: #232526;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 22px;
+  font-size: 1em;
+  box-shadow: 0 2px 8px #00e67633;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.notifications button:hover {
+  background: linear-gradient(90deg, #ffd700 60%, #00e676 100%);
+  box-shadow: 0 4px 16px #ffd70055;
+}
+
+#liveNotif {
+  font-weight: bold;
+  font-size: 1.1em;
+  color: #00e676;
+  margin-top: 10px;
+}
+
+.revenue-graph {
+  background: linear-gradient(120deg, #232526 60%, #00e67622 100%);
+  border-radius: 16px;
+  padding: 28px 32px;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.13);
+  border: 1.5px solid #00e67655;
+  margin-bottom: 32px;
+}
+
+.revenue-graph h2 {
+  color: #00e676;
+  margin-top: 0;
+  margin-bottom: 18px;
+  font-size: 1.3em;
+}
+
+/* Booking History Modal */
+#bookingHistoryModal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.7);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+#bookingHistoryModal .modal-content,
+#bookingHistoryModal > div {
+  background: #181c20 !important;
+  color: #fff !important;
+  border-radius: 16px;
+  max-width: 600px;
+  width: 90vw;
+  margin: 40px auto;
+  padding: 32px 24px;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.45); /* stronger shadow for depth */
+  animation: popup-fadein 0.25s;
+}
+
+@keyframes popup-fadein {
+  from { opacity: 0; transform: scale(0.97);}
+  to { opacity: 1; transform: scale(1);}
+}
+
+#bookingHistoryModal h2 {
+  color: #00e676;
+  margin-top: 0;
+  margin-bottom: 18px;
+  font-size: 1.3em;
+  letter-spacing: 1px;
+}
+
+#bookingHistoryModal #closeBookingHistory {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  color: #00e676;
+  cursor: pointer;
+  transition: color 0.2s;
+  font-weight: bold;
+}
+
+#bookingHistoryModal #closeBookingHistory:hover {
+  color: #ffd700;
+}
+
+#bookingHistoryList {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-top: 10px;
+}
+
+#bookingHistoryList > div {
+  background: #23272b !important;
+  color: #fff !important;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  padding: 12px 16px;
+  box-shadow: 0 2px 8px #00e67622;
+  border: 1.5px solid #00e67655;
+  color: #e5e7eb;
+  transition: box-shadow 0.18s, border-color 0.18s;
+}
+
+#bookingHistoryList > div:hover {
+  box-shadow: 0 4px 16px #00e67655;
+  border-color: #00e676;
+}
+
+#bookingHistoryList b {
+  color: #00e676;
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  #bookingHistoryModal .modal-content,
+  #bookingHistoryModal > div {
+    padding: 16px 8px;
+  }
+}
+
+@media (max-width: 600px) {
+  #bookingHistoryModal .modal-content,
+  #bookingHistoryModal > div {
+    padding: 10px 2vw;
+  }
+}
+
+@media (max-width: 900px) {
+  .overview {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .card {
+    min-width: 120px;
+    padding: 18px 12px;
+  }
+  .slots-grid {
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  }
+  #slot-properties, .notifications, .revenue-graph {
+    padding: 16px 8px;
+  }
+}
+
+@media (max-width: 600px) {
+  nav {
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px 8px;
+  }
+  .overview {
+    gap: 10px;
+  }
+  .card {
+    padding: 12px 6px;
+    font-size: 1em;
+  }
+  .slots-grid {
+    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+    gap: 8px;
+  }
+  #slot-properties, .notifications, .revenue-graph {
+    padding: 10px 2vw;
+  }
+  #bookingHistoryModal .modal-content {
+    padding: 16px 6px;
+  }
+}

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EV Station Dashboard</title>
+  <link rel="stylesheet" href="station-dashbord.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="module" src="station-dashbord.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #181c20 0%, #23272b 100%);
+      color: #e5e7eb;
+      min-height: 100vh;
+    }
+    nav {
+      background: #181c20;
+      color: #e5e7eb;
+      padding: 18px 36px;
+      box-shadow: 0 2px 12px 0 rgba(0,0,0,0.18);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav h1 {
+      margin: 0;
+      font-size: 2rem;
+      letter-spacing: 2px;
+      font-weight: 700;
+      color: #00e676;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+    nav button {
+      background: linear-gradient(90deg, #00e676 60%, #23272b 100%);
+      color: #181c20;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.1em;
+      font-weight: 600;
+      box-shadow: 0 2px 8px #00e67633;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    nav button:hover {
+      background: linear-gradient(90deg, #23272b 60%, #00e676 100%);
+      color: #00e676;
+      box-shadow: 0 4px 16px #00e67655;
+    }
+    main {
+      padding: 32px 0;
+    }
+    .overview {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 32px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .card {
+      background: #23272b;
+      border: 1.5px solid #222c36;
+      border-radius: 16px;
+      padding: 24px 32px;
+      box-shadow: 0 2px 12px 0 rgba(0,0,0,0.13);
+      flex: 1;
+      text-align: center;
+      font-size: 1.25em;
+      color: #e5e7eb;
+      font-weight: 500;
+      min-width: 180px;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .card:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 8px 32px 0 #00e67633;
+      border-color: #00e676;
+    }
+    #bookingHistoryBtn {
+      background: linear-gradient(90deg, #00e676 60%, #23272b 100%);
+      color: #181c20;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      padding: 14px 28px;
+      font-size: 1.1em;
+      margin-left: auto;
+      box-shadow: 0 2px 8px #00e67633;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    #bookingHistoryBtn:hover {
+      background: linear-gradient(90deg, #23272b 60%, #00e676 100%);
+      color: #00e676;
+      box-shadow: 0 4px 16px #00e67655;
+    }
+    .slots-status {
+      margin-bottom: 32px;
+    }
+    .slots-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+    .slot {
+      text-align: center;
+      font-weight: bold;
+      border: 1.5px solid #222c36;
+      box-shadow: 0 2px 8px #00e67622;
+      border-radius: 10px;
+      padding: 18px 0;
+      font-size: 1.1em;
+      background: #23272b;
+      color: #e5e7eb;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+    }
+    .slot.available {
+      background: linear-gradient(120deg, #232526 60%, #00e67633 100%);
+      border-color: #00e676;
+      color: #00e676;
+    }
+    .slot.booked {
+      background: linear-gradient(120deg, #232526 60%, #ffd70033 100%);
+      border-color: #ffd700;
+      color: #ffd700;
+    }
+    .slot.unavailable {
+      background: linear-gradient(120deg, #232526 60%, #e5e7eb22 100%);
+      border-color: #e5e7eb;
+      color: #bbb;
+    }
+    .slot.maintenance {
+      background: linear-gradient(120deg, #232526 60%, #f59e4233 100%);
+      border-color: #f59e42;
+      color: #f59e42;
+    }
+    .slot.charging {
+      background: linear-gradient(120deg, #232526 60%, #3b82f633 100%);
+      border-color: #3b82f6;
+      color: #3b82f6;
+    }
+    .slot.reserved {
+      background: linear-gradient(120deg, #232526 60%, #f9731633 100%);
+      border-color: #f97316;
+      color: #f97316;
+    }
+    .slot:hover {
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 6px 24px #00e67633;
+      border-color: #00e676;
+    }
+    #slot-properties {
+      background: #23272b;
+      border: 1.5px solid #222c36;
+      border-radius: 16px;
+      padding: 28px 32px;
+      box-shadow: 0 4px 24px 0 rgba(0,0,0,0.13);
+      color: #e5e7eb;
+      max-width: 480px;
+      margin: 0 auto 32px auto;
+    }
+    #slot-properties h2 {
+      color: #00e676;
+      margin-top: 0;
+      margin-bottom: 18px;
+      font-size: 1.4em;
+    }
+    #slot-properties label {
+      font-weight: 600;
+      color: #ffd700;
+      font-size: 1.08em;
+    }
+    #slot-status {
+      background: #181c20;
+      color: #00e676;
+      border: 1.5px solid #00e67655;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 1em;
+      margin-left: 8px;
+      margin-top: 8px;
+      font-weight: 600;
+      transition: border-color 0.2s;
+    }
+    #slot-status:focus {
+      border-color: #00e676;
+      outline: none;
+    }
+    #slot-timestamp {
+      background: #181c20;
+      color: #ffd700;
+      border: 1.5px solid #ffd70055;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 1em;
+      margin-top: 8px;
+      font-weight: 600;
+      transition: border-color 0.2s;
+    }
+    #slot-timestamp:focus {
+      border-color: #ffd700;
+      outline: none;
+    }
+    #slot-properties button {
+      background: linear-gradient(90deg, #00e676 60%, #23272b 100%);
+      color: #181c20;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 28px;
+      font-size: 1.1em;
+      margin-top: 12px;
+      box-shadow: 0 2px 8px #00e67633;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    #slot-properties button:hover {
+      background: linear-gradient(90deg, #23272b 60%, #00e676 100%);
+      color: #00e676;
+      box-shadow: 0 4px 16px #ffd70055;
+    }
+    .notifications {
+      background: #23272b;
+      border-radius: 16px;
+      padding: 28px 32px;
+      box-shadow: 0 4px 24px 0 rgba(0,0,0,0.13);
+      margin-bottom: 32px;
+    }
+    .notifications h2 {
+      color: #00e676;
+      margin-top: 0;
+      margin-bottom: 18px;
+      font-size: 1.3em;
+    }
+    .notifications ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    .notifications li {
+      background: #181c20;
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1.5px solid #00e67655;
+      color: #e5e7eb;
+    }
+    .notifications input[type="text"] {
+      background: #181c20;
+      color: #00e676;
+      border: 1.5px solid #00e67655;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 1em;
+      margin-right: 8px;
+      font-weight: 600;
+      transition: border-color 0.2s;
+    }
+    .notifications input[type="text"]:focus {
+      border-color: #00e676;
+      outline: none;
+    }
+    .notifications button {
+      background: linear-gradient(90deg, #00e676 60%, #23272b 100%);
+      color: #181c20;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 22px;
+      font-size: 1em;
+      box-shadow: 0 2px 8px #00e67633;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    .notifications button:hover {
+      background: linear-gradient(90deg, #23272b 60%, #00e676 100%);
+      color: #00e676;
+      box-shadow: 0 4px 16px #ffd70055;
+    }
+    #liveNotif {
+      font-weight: bold;
+      font-size: 1.1em;
+      color: #00e676;
+      margin-top: 10px;
+    }
+    .revenue-graph {
+      background: #23272b;
+      border-radius: 16px;
+      padding: 28px 32px;
+      box-shadow: 0 4px 24px 0 rgba(0,0,0,0.13);
+      border: 1.5px solid #222c36;
+      margin-bottom: 32px;
+    }
+    .revenue-graph h2 {
+      color: #00e676;
+      margin-top: 0;
+      margin-bottom: 18px;
+      font-size: 1.3em;
+    }
+    #bookingHistoryModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.7);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    #bookingHistoryModal > div {
+      background: #23272b;
+      color: #e5e7eb;
+      border-radius: 16px;
+      max-width: 600px;
+      width: 90vw;
+      margin: 40px auto;
+      padding: 32px 24px;
+      position: relative;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    }
+    #bookingHistoryModal h2 {
+      color: #00e676;
+      margin-top: 0;
+      margin-bottom: 18px;
+      font-size: 1.3em;
+    }
+    #bookingHistoryModal #closeBookingHistory {
+      position: absolute;
+      top: 12px;
+      right: 18px;
+      background: none;
+      border: none;
+      font-size: 1.5em;
+      color: #00e676;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    #bookingHistoryModal #closeBookingHistory:hover {
+      color: #ffd700;
+    }
+    #bookingHistoryList {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    #bookingHistoryList > div {
+      background: #181c20;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      padding: 12px 16px;
+      box-shadow: 0 2px 8px #00e67622;
+      border: 1.5px solid #00e67655;
+      color: #e5e7eb;
+    }
+    @media (max-width: 900px) {
+      .overview {
+        flex-direction: column;
+        gap: 16px;
+      }
+      .card {
+        min-width: 120px;
+        padding: 18px 12px;
+      }
+      .slots-grid {
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+      }
+      #slot-properties, .notifications, .revenue-graph {
+        padding: 16px 8px;
+      }
+    }
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        gap: 10px;
+        padding: 12px 8px;
+      }
+      .overview {
+        gap: 10px;
+      }
+      .card {
+        padding: 12px 6px;
+        font-size: 1em;
+      }
+      .slots-grid {
+        grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+        gap: 8px;
+      }
+      #slot-properties, .notifications, .revenue-graph {
+        padding: 10px 2vw;
+      }
+      #bookingHistoryModal > div {
+        padding: 16px 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <h1>EV Station Dashboard</h1>
+    <button id="logout">Logout</button>
+  </nav>
+
+  <main>
+    <section class="overview">
+      <div class="card">Total Slots: <span id="totalSlots">--</span></div>
+      <div class="card">Available: <span id="availableSlots">--</span></div>
+      <div class="card">Revenue Today: ₹<span id="revenueToday">--</span></div>
+      <button id="bookingHistoryBtn" style="margin-left:auto; background:#00e676; color:#222; font-weight:bold;">Booking History</button>
+    </section>
+
+    <section class="slots-status">
+      <h2>Slot Status</h2>
+      <div class="slots-grid" id="slotsGrid"></div>
+    </section>
+
+    <section id="slot-properties" style="display:none; margin-top:20px;">
+      <h2>Slot Properties</h2>
+      <p id="selected-slot"></p>
+      <label>Status:
+        <select id="slot-status" onchange="toggleTimeInput()">
+          <option value="available">Available</option>
+          <option value="booked">Booked</option>
+          <option value="unavailable">Unavailable</option>
+          <option value="maintenance">Maintenance</option>
+          <option value="charging">Charging</option>
+          <option value="reserved">Reserved</option>
+        </select>
+      </label><br><br>
+      <div id="time-input-group" style="display:none;">
+        <label>Charging Until (timestamp):
+          <input type="datetime-local" id="slot-timestamp" />
+        </label><br><br>
+      </div>
+      <button onclick="saveSlotProperties()">Save Changes</button>
+    </section>
+
+    <section class="notifications">
+      <h2>Live Notifications</h2>
+      <div style="margin-top: 10px;">
+        <input type="text" id="notifInput" placeholder="Enter notification" maxlength="100" required />
+        <button onclick="updateNotification()">Submit</button>
+      </div>
+      <p id="liveNotif" style="margin-top: 10px;"></p>
+      <ul id="notifList"></ul>
+    </section>
+
+    <section class="revenue-graph">
+      <h2>Weekly Revenue</h2>
+      <canvas id="revenueChart" width="400" height="200"></canvas>
+    </section>
+
+    <!-- Booking History Modal -->
+    <div id="bookingHistoryModal">
+      <div class="modal-content">
+        <button id="closeBookingHistory">&times;</button>
+        <h2>Booking History</h2>
+        <div id="bookingHistoryList"></div>
+      </div>
+    </div>
+  </main>
+
+  <script type="module" src="station-dashbord.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const logoutBtn = document.getElementById("logout");
+      if (logoutBtn) {
+        logoutBtn.addEventListener("click", function() {
+          window.location.href = "station-login.html";
+        });
+      }
+    });
+  </script>
+
+  <script type="module">
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+    import { getAuth } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
+
+    // Booking History Modal logic
+    const bookingHistoryBtn = document.getElementById('bookingHistoryBtn');
+    const bookingHistoryModal = document.getElementById('bookingHistoryModal');
+    const closeBookingHistory = document.getElementById('closeBookingHistory');
+    const bookingHistoryList = document.getElementById('bookingHistoryList');
+
+    bookingHistoryBtn.onclick = async () => {
+      bookingHistoryList.innerHTML = "<div style='color:#888;'>Loading...</div>";
+      bookingHistoryModal.style.display = "flex";
+      try {
+        const auth = getAuth();
+        const user = auth.currentUser;
+        if (!user) {
+          bookingHistoryList.innerHTML = "<div style='color:#c00;'>Not logged in.</div>";
+          return;
+        }
+        const db = getFirestore();
+        const bookDocRef = doc(db, "stations", user.uid, "Bookings", "Book");
+        const bookDocSnap = await getDoc(bookDocRef);
+        if (bookDocSnap.exists()) {
+          const arr = bookDocSnap.data().bookingHistory || [];
+          if (!arr.length) {
+            bookingHistoryList.innerHTML = "<div style='color:#888;'>No booking history found.</div>";
+          } else {
+            bookingHistoryList.innerHTML = arr.map((b, i) => `
+              <div style="background:#f1f5f9; border-radius:8px; margin-bottom:12px; padding:12px 16px; box-shadow:0 2px 8px #00e67622;">
+                <div><b>Station:</b> ${b.station || ""}</div>
+                <div><b>Slot:</b> ${b.slotNo || ""}</div>
+                <div><b>From:</b> ${b.chargingfrom || ""}</div>
+                <div><b>To:</b> ${b.chargingto || ""}</div>
+                <div><b>Name:</b> ${b.Name || ""}</div>
+                <div><b>Mail:</b> ${b.Mail || ""}</div>
+              </div>
+            `).join('');
+          }
+        } else {
+          bookingHistoryList.innerHTML = "<div style='color:#888;'>No booking history found.</div>";
+        }
+      } catch (e) {
+        bookingHistoryList.innerHTML = "<div style='color:#c00;'>Error loading booking history.</div>";
+      }
+    };
+    closeBookingHistory.onclick = () => {
+      bookingHistoryModal.style.display = "none";
+    };
+    window.onclick = (e) => {
+      if (e.target === bookingHistoryModal) bookingHistoryModal.style.display = "none";
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Profile</title>
+</head>
+<body>
+
+<div class="container">
+  <h2>User Profile</h2>
+  <label>Name:</label>
+  <input type="text" id="name" />
+  <label>Email:</label>
+  <input type="email" id="email" />
+  <label>Phone No:</label>
+  <input type="text" id="phone" />
+  <button onclick="updateProfile()">Save Changes</button>
+</div>
+
+<script type="module" src="scripts.js"></script>
+<!-- CSS for the profile page -->
+<style>
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    padding: 0;
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .container {
+    background: #fff;
+    padding: 32px 28px;
+    border-radius: 18px;
+    max-width: 400px;
+    margin: 40px auto;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+    border: 1px solid #e0e0e0;
+  }
+  h2 {
+    color: #1e88e5;
+    margin-bottom: 18px;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+  label {
+    color: #333;
+    font-weight: 500;
+    margin-top: 10px;
+    display: block;
+    margin-bottom: 4px;
+  }
+  input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0 18px 0;
+    border: 1px solid #bdbdbd;
+    border-radius: 8px;
+    background: #f7fafd;
+    font-size: 1rem;
+    transition: border 0.2s;
+    outline: none;
+  }
+  input:focus {
+    border: 1.5px solid #1e88e5;
+    background: #e3f2fd;
+  }
+  button {
+    width: 100%;
+    padding: 12px 0;
+    margin-top: 8px;
+    background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 16px rgba(67, 233, 123, 0.12);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+  button:hover {
+    background: linear-gradient(90deg, #38f9d7 0%, #43e97b 100%);
+    transform: translateY(-2px) scale(1.02);
+  }
+</style>
+</body>
+</html>
